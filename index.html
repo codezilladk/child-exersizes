@@ -104,7 +104,7 @@
 				$('#start').addClass('hidden');
 			});
 
-			$('#next').on('click touchstart', function(){
+			$('#next').on('click', function(){
 				exersize.cnt = exersize.cnt+1;
 				$('#total').html(exersize.cnt);
 				if($('#ans').val() == exersize.ans) {
@@ -127,7 +127,7 @@
 				}
 			})
 
-			$('#stop').on('click touchstart', function(){
+			$('#stop').on('click', function(){
 				clearTimeout(sb.wrk);
 				sb.wrk = 0;
 				$('#renew').removeClass('hidden');
