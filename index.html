@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Задачки</title>
+	    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <style type="text/css">
+	.hidden {
+		display: none;
+	}
+</style> -->
+</head>
+<body>
+	<div class="container text-center">
+		<h1 class="text-center">Задачки</h1>
+		<div id="ex-body" class="col-md-12 hidden">
+			<h3>Пример:</h3>
+			<h4 id="timer" style="color: green;"></h4>
+			<h2 id="exersize"><span id="first"></span> <span id="act"></span> <span id="second"></span> = <input id="ans" type="number" size="3" name="ans" style="width: 60px;"></h2>
+		</div>
+		<button id="start" class="btn btn-default btn-success">Старт</button>
+		<div class="col-xs-12 col-sm-12">
+			<button id="next" class="btn btn-default btn-primary hidden">Дальше</button>
+		<!-- </div>
+		<div class="col-xs-12 col-sm-6"> -->
+			<button id="stop" class="btn btn-default btn-danger hidden">Стоп</button>
+			<a id="renew" href="/" class="btn btn-default btn-success hidden">Заново</a>
+		</div>
+		<div class="col-sm-4">
+			<h3 style="color: blue;">Всего решено задач: <span id="total">0</span>
+		</div>
+		<div class="col-sm-4">
+			<h3 style="color: green;">Правильно: <span id="correct">0</span>
+		</div>
+		<div class="col-sm-4">
+			<h3 style="color: red;">Не правильно: <span id="incorrect">0</span>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var exersize = [];
+			exersize.cnt = 0;
+			exersize.correct = 0;
+			exersize.incorrect = 0;
+		function randVal(max = 100) {
+			exersize.act = Math.floor(Math.random()*(2-1+1)+1);
+
+			if (exersize.act == 2) {
+				exersize.first = Math.floor(Math.random()*(max-0+1)+0);
+			    exersize.second = Math.floor(Math.random()*(100-exersize.first-0+1)+0);
+			    exersize.ans = exersize.first+exersize.second;
+			} else {
+				// Math.floor(Math.random()*(max-min+1)+min);
+				exersize.first = Math.floor(Math.random()*(max-0+1)+0);
+			    exersize.second = Math.floor(Math.random()*(exersize.first-0+1)+0);
+			    exersize.ans = exersize.first-exersize.second;
+			}
+		    return exersize;
+		};
+
+		function myTimer() {
+			var d = ':';
+			var p = 60;
+			var z = function (x) {return (((x < 10) ? '0' : '') + x)};
+			 
+			var sb = document.getElementById ('timer');
+			var H = sb.innerHTML.split (d);
+			 
+			var t = parseInt (H[0]) * p * p + parseInt (H[1]) * p + parseInt (H[2]) + 1;
+			sb.innerHTML = [z (Math.floor (t / p / p)),
+			                   z (Math.floor (t % (p * p) / p)), 
+			                   z (t % (p* p) % p)].join (d);
+			sb.wrk = setTimeout (myTimer, 1000);
+		}
+
+		$(function(){
+			// randVal(100);
+			// console.log(exersize);
+			var sb = document.getElementById('timer');
+
+
+			$('#start').on('click', function(){
+				sb.innerHTML = '00:00:00';
+				sb.wrk = setTimeout(myTimer, 1000);
+
+				randVal();
+				$('#first').html(exersize.first);
+				$('#second').html(exersize.second);
+				if(exersize.act == 2) {
+					$('#act').html('+');
+				} else {
+					$('#act').html('-');
+				}
+				$('#ex-body, #next, #stop').removeClass('hidden');
+				$('#start').addClass('hidden');
+			});
+
+			$('#next').on('click', function(){
+				exersize.cnt = exersize.cnt+1;
+				$('#total').html(exersize.cnt);
+				if($('#ans').val() == exersize.ans) {
+					exersize.correct = exersize.correct+1;
+					$('#correct').html(exersize.correct);
+				} else {
+					exersize.incorrect = exersize.incorrect+1;
+					$('#incorrect').html(exersize.incorrect);
+				}
+
+				$('#ans').val(0);
+
+				randVal();
+				$('#first').html(exersize.first);
+				$('#second').html(exersize.second);
+				if(exersize.act == 2) {
+					$('#act').html('+');
+				} else {
+					$('#act').html('-');
+				}
+			})
+
+			$('#stop').on('click', function(){
+				clearTimeout(sb.wrk);
+				sb.wrk = 0;
+				$('#renew').removeClass('hidden');
+				$('#next').addClass('hidden');
+
+			})
+		})
+	</script>
+
+</body>
+</html>
