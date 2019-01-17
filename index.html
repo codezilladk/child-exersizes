@@ -88,7 +88,7 @@
 			var sb = document.getElementById('timer');
 
 
-			$('#start').on('click', function(){
+			$('#start').on('click touchstart', function(){
 				sb.innerHTML = '00:00:00';
 				sb.wrk = setTimeout(myTimer, 1000);
 
@@ -104,7 +104,7 @@
 				$('#start').addClass('hidden');
 			});
 
-			$('#next').on('click', function(){
+			$('#next').on('click touchstart', function(){
 				exersize.cnt = exersize.cnt+1;
 				$('#total').html(exersize.cnt);
 				if($('#ans').val() == exersize.ans) {
@@ -127,7 +127,7 @@
 				}
 			})
 
-			$('#stop').on('click', function(){
+			$('#stop').on('click touchstart', function(){
 				clearTimeout(sb.wrk);
 				sb.wrk = 0;
 				$('#renew').removeClass('hidden');
