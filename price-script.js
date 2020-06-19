@@ -1,5 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function() {
-        alert('куку');
-    })
-</script>
+$(document).ready(function() {
+    alert('куку');
+});
