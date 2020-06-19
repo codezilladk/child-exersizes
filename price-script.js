@@ -1,3 +1,5 @@
 $(document).ready(function() {
-    alert('куку');
+    $('.js-product-price').each(function(index, value) {
+	  console.log($(this).text);
+	});
 });
