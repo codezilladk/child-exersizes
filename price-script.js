@@ -10,7 +10,7 @@ $(document).ready(function() {
     	} else {
     		finalPrice = (parseInt($(this).text()) + (parseInt($(this).text())*0.2))*2*curs.Valute.EUR.value;
     	}
-    	
+    	$(this).text(finalPrice);
 	  console.log(finalPrice);
 	});
 });
