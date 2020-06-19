@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	let curs = 78;
+	var curs = 78;
 	$.get( "https://www.cbr-xml-daily.ru/daily_json.js")
 	  .done(function( data ) {
 	    curs = data;
